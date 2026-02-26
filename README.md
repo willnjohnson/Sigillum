@@ -1,3 +1,9 @@
+# Sigillum - PDF Digital Signature
+
+<img width="890" height="726" alt="image" src="https://github.com/user-attachments/assets/92cbd0a5-0f93-47f5-a0ae-e2106a19f91e" />
+
+**Sigillum** is a personal tool for signing PDF documents. Generate a public key pair, sign a PDF, and verify a PDF. A watermark is also displayed in the top-left of the PDF document with the Signer's Name, Timestamp, and even Extras.
+
 # IMPORTANT NOTICE
 
 This repo is purely a "toy-project" as an attempt to implement digital signatures. It only handles signing (integrity) and does not provide authenticity/ownership (i.e. certificates).
