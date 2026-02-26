@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sigillum - PDF Digital Signature</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+
+  <body>
+    <main class="container">
+      <header>
+        <span class="header-logo-wrapper"><img src="/src/assets/Sigillum.png" alt="Sigillum Logo" class="header-logo" /></span>
+        <h1>Sigillum</h1>
+        <p class="subtitle">A Toy PDF Digital Signature Tool</p>
+      </header>
+
+      <!-- Tab Navigation -->
+      <nav class="tab-nav">
+        <button id="tab-sign" class="tab-btn active" data-tab="sign-section">Sign PDF</button>
+        <button id="tab-verify" class="tab-btn" data-tab="verify-section">Verify PDF</button>
+      </nav>
+
+      <nav class="menu-bar">
+        <div class="menu-items">
+          <button id="btn-generate-key" class="menu-btn"><i class="fa-solid fa-key"></i> Generate Keypair</button>
+          <button id="btn-import-key" class="menu-btn"><i class="fa-solid fa-file-import"></i> Import Key</button>
+          <button id="btn-export-key" class="menu-btn hidden"><i class="fa-solid fa-file-export"></i> Export Key</button>
+        </div>
+      </nav>
+
+      <section id="key-section" class="section hidden">
+        <h2><i class="fa-solid fa-key"></i> Current Public Key</h2>
+        <div class="public-key-display">
+          <pre id="public-key-content">No key loaded</pre>
+        </div>
+      </section>
+
+      <section id="sign-section" class="section">
+        <h2><i class="fa-solid fa-pen"></i> Sign PDF</h2>
+        
+        <div id="no-key-message" class="message info">
+          Please generate or import a keypair to sign PDFs.
+        </div>
+
+        <div id="sign-form" class="hidden">
+          <div class="form-group">
+            <label for="signer-name">Signer Name:</label>
+            <input type="text" id="signer-name" placeholder="Enter your name" />
+          </div>
+
+          <div class="form-group">
+            <label for="extra-text">Extra (optional):</label>
+            <input type="text" id="extra-text" placeholder="e.g., More at www.example.com" />
+          </div>
+
+          <div 
+            id="drop-zone" 
+            class="drop-zone"
+          >
+            <div class="drop-zone-content">
+              <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+              <p>Drag & Drop PDF here</p>
+              <p class="drop-subtext">or click to browse</p>
+              <input type="file" id="file-input" accept=".pdf" hidden />
+            </div>
+            <div id="file-info" class="file-info hidden">
+              <p id="file-name"></p>
+              <p id="file-size"></p>
+            </div>
+          </div>
+
+          <button id="btn-sign" class="action-btn" disabled><i class="fa-solid fa-signature"></i> Sign PDF</button>
+        </div>
+      </section>
+
+      <section id="result-section" class="section hidden">
+        <h2><i class="fa-solid fa-champagne-glasses"></i> PDF Signed Successfully!</h2>
+        <div class="signature-info">
+          <p><strong>Signed by:</strong> <span id="result-name"></span></p>
+          <p><strong>Timestamp:</strong> <span id="result-timestamp"></span></p>
+          <p><strong>Extra:</strong> <span id="result-extra"></span></p>
+          <p><strong>Signature:</strong> <span id="result-signature" class="signature-value"></span></p>
+        </div>
+        <button id="btn-download" class="action-btn success"><i class="fa-solid fa-download"></i> Download Signed PDF</button>
+      </section>
+
+      <!-- Verify PDF Section -->
+      <section id="verify-section" class="section hidden">
+        <h2><i class="fa-solid fa-circle-check"></i> Verify PDF</h2>
+        
+        <div 
+          id="verify-drop-zone" 
+          class="drop-zone"
+        >
+          <div class="drop-zone-content">
+            <i class="fa-solid fa-file-pdf drop-icon"></i>
+            <p>Drag & Drop PDF here to verify</p>
+            <p class="drop-subtext">or click to browse</p>
+            <input type="file" id="verify-file-input" accept=".pdf" hidden />
+          </div>
+          <div id="verify-file-info" class="file-info hidden">
+            <p id="verify-file-name"></p>
+            <p id="verify-file-size"></p>
+          </div>
+        </div>
+
+        <button id="btn-verify" class="action-btn"><i class="fa-solid fa-file-shield"></i> Verify PDF</button>
+
+        <div id="verify-result" class="hidden">
+          <div id="verify-success" class="message success hidden">
+            <i class="fa-solid fa-circle-check"></i>
+            <h3>Valid Signature</h3>
+            <p id="verify-message"></p>
+          </div>
+          <div id="verify-error" class="message info hidden">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <h3>No Signature Found</h3>
+            <p id="verify-error-message"></p>
+          </div>
+          <div id="verify-details" class="signature-info hidden">
+            <p><strong>Signed by:</strong> <span id="verify-name"></span></p>
+            <p><strong>Timestamp:</strong> <span id="verify-timestamp"></span></p>
+            <p><strong>Extra:</strong> <span id="verify-extra"></span></p>
+            <p><strong>Signature:</strong> <span id="verify-signature" class="signature-value"></span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modals -->
+      <div id="modal-overlay" class="modal-overlay hidden">
+        <div id="modal" class="modal">
+          <div class="modal-header">
+            <h3 id="modal-title">Modal</h3>
+            <button id="modal-close" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div id="modal-content" class="modal-content">
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
