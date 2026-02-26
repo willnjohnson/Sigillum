@@ -12,7 +12,7 @@ Furthermore, this implementation is NOT compatible with verification tools in Ad
 See FIPS 186-4: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf
 
 Other reasons not to use this application for major tasks:
-- Randomness may NOT be random enough (uses urandom rather than non-determistic methods like mouse movement).
+- Randomness may NOT be random enough (uses urandom rather than a more non-determistic method like mouse movement). Shouldn't be a problem in most cases though.
 - This program has not be vetted by any established security company (and likely never will be).
 
 What I would like to have, but is unlikely to ever get standardized:
